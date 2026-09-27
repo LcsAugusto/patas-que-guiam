@@ -1,0 +1,229 @@
+/* Variáveis globais do Design System: cores, tamanhos de texto e espaçamentos
+   reutilizados em todo o site, em vez de repetir valores soltos em cada regra */
+:root{
+    --cor-primaria: #ffcc26;
+    --cor-secundaria-voluntariado: #ef1984;
+    --cor-secundaria-apadriamento: #5d11d9;
+    --cor-secundaria-doacoes: #09cb16;
+ 
+    --cor-neutra-100: #fffefa;
+    --cor-neutra-900: #000000;
+ 
+    --texto-xs:0.75rem;
+    --texto-sm:1rem;
+    --texto-md:1.5rem;
+    --texto-lg:2rem;
+    --texto-xl:3rem;
+ 
+    --espaco-1:0.5rem;
+    --espaco-2:1rem;
+    --espaco-3:1.5rem;
+    --espaco-4:2.5rem;
+    --espaco-5:4rem;
+}
+ 
+/* Seção "Sobre": grid de 12 colunas, texto ocupa 8 e imagem ocupa 4 (em telas grandes) */
+#sobre {
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+}
+ 
+.sobre-texto{
+    grid-column: span 8;
+}
+ 
+.sobre-imagem{
+    grid-column: span 4;
+}
+ 
+/* A partir daqui, uma série de breakpoints que redefinem quantas colunas cada
+   bloco ocupa, dependendo da largura da tela (design responsivo) */
+@media (max-width:480px){
+    .sobre-texto{
+        grid-column: span 12;
+    }
+    .sobre-imagem{
+        grid-column: span 12;
+    }
+}
+ 
+@media (min-width: 481px) and (max-width: 768px){
+    .sobre-texto {
+        grid-column: span 12;
+    }
+    .sobre-imagem {
+        grid-column: span 12;
+    }
+}
+ 
+@media (min-width: 769px) and (max-width: 1025px){
+    .sobre-texto {
+        grid-column: span 7;
+    }
+    .sobre-imagem {
+        grid-column: span 5;
+    }
+}
+ 
+@media (min-width: 1026px) and (max-width: 1440px){
+    .sobre-texto {
+        grid-column: span 8;
+    }
+    .sobre-imagem {
+        grid-column: span 4;
+    }
+}
+ 
+@media (min-width: 1441px) {
+    .sobre-texto {
+        grid-column: span 6;
+    }
+    .sobre-imagem {
+        grid-column: span 6;
+    }
+}
+ 
+/* Cabeçalho: h1, nav e botão de cadastro lado a lado */
+#home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--espaco-2) var(--espaco-3);
+}
+ 
+.navegacao-principal ul{
+    display: flex;
+    justify-content: space-around;
+    gap: var(--espaco-3);
+    list-style: none;
+}
+ 
+/* Checkbox invisível do menu hambúrguer */
+.checkbox-escondido {
+    display: none;
+}
+ 
+/* Botão de hambúrguer, escondido em telas grandes */
+.botao-menu {
+    display: none;
+}
+ 
+/* Botão de cadastro, sempre visível, fora do menu */
+.botao-cadastro {
+    background-color: var(--cor-primaria);
+    color: var(--cor-neutra-900);
+    text-decoration: none;
+    padding: var(--espaco-1) var(--espaco-3);
+    border-radius: 6px;
+    font-weight: bold;
+}
+ 
+/* Os cartões de voluntariado e doação usam o mesmo padrão: flex com quebra de
+   linha, cada article cresce/encolhe a partir de uma largura base de 280px */
+.cartoes-voluntariado,
+.cartoes-doacao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-3);
+}
+ 
+.cartoes-voluntariado article,
+.cartoes-doacao article {
+    flex: 1 1 280px;
+}
+ 
+/* Comportamento do menu hambúrguer em telas pequenas: mostra o botão sanduíche,
+   esconde a lista por padrão, e revela a lista quando o checkbox é marcado
+   (truque CSS puro, sem JavaScript, usando o seletor ~ para pegar o irmão) */
+@media (max-width: 768px){
+    .botao-menu {
+        display: block;
+    }
+ 
+    .navegacao-principal .lista-menu {
+        display: none;
+    }
+ 
+    .checkbox-escondido:checked ~ .lista-menu {
+        display: flex;
+        flex-direction: column;
+ 
+    }
+}
+ 
+/* Estados de interação do botão de cadastro: hover (mouse em cima), focus
+   (navegação por teclado) e active (o momento do clique) */
+.botao-cadastro:hover{
+     background-color:#ffc404;
+}
+ 
+.botao-cadastro:focus{
+    outline: 3px solid #b48a00;
+    outline-offset: 2px;
+}
+ 
+.botao-cadastro:active {
+    background-color: #ffc404;
+    transform: translateY(2px);
+}
+ 
+/* Validação visual nativa dos campos do formulário: verde quando o valor
+   preenchido é válido, vermelho quando é inválido. :not(:placeholder-shown)
+   evita que o campo fique vermelho antes do usuário digitar algo */
+input:not(:placeholder-shown):valid{
+    border:2px solid green;
+}
+ 
+input:not(:placeholder-shown):invalid{
+    border:2px solid red;
+}
+ 
+/* Badge: etiqueta pequena que categoriza um item (ex: "Vagas abertas" no card
+   de voluntariado presencial) */
+.badge {
+    display: inline-block;
+    background-color: var(--cor-primaria);
+    color: var(--cor-neutra-900);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+ 
+/* Alerta: bloco de destaque que comunica o resultado de uma ação do usuário
+   (diferente do badge, que só categoriza um item) */
+.alerta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: var(--espaco-2) var(--espaco-3);
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+ 
+.alerta-sucesso {
+    background-color: #e6f4ea;
+    border: 1px solid #34a853;
+    color: #1e7e34;
+}
+ 
+.alerta-icone {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.escondido{
+    display:none
+}
+
+.campo-invalido {
+    border: 2px solid red;
+}
+
+.mensagem-erro {
+    display: block;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
