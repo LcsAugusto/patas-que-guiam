@@ -1,0 +1,1 @@
+Site institucional de uma ONG fictícia dedicada à formação e adoção de cães-guia, desenvolvido como projeto acadêmico da disciplina de Desenvolvimento Front-End.
