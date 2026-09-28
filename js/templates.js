@@ -15,53 +15,76 @@ export const sobre = `<section id="sobre">
       </div>
     </section>`;
 
-// Template da rota #projetos, com as subseções de voluntariado e campanhas de doação embutidas
+// Template da rota #projetos, com as subseções de voluntariado e campanhas de doação embutidas.
+// Cada subseção tem texto de introdução, imagem e os cartões com as formas de ajudar
 export const projetos = `<section id="nossos-projetos">
-    <h2>Nossos Projetos</h2>
+    <div class="projetos-texto">
+      <h2>Nossos Projetos</h2>
+      <p>Na Patas que Guiam, cada projeto nasce da mesma missão: transformar a rotina de pessoas com deficiência visual através de cães-guia bem treinados e bem cuidados. Para isso, contamos com quem doa tempo e com quem doa recursos. Abaixo você encontra as formas de se envolver diretamente com o treinamento dos cães, seja como voluntário presencial, remoto ou padrinho, e também as campanhas ativas que sustentam a alimentação e a saúde de cada animal em formação</p>
+    </div>
+
+    <div class="projetos-imagem">
+      <img src="../imagens/img-projetos.jpg" width="600" alt="Instrutor, voluntário e pessoa com deficiência visual reunidos ao ar livre em um pátio gramado, próximos a dois labradores dourados, um deles usando colete de cão-guia, transmitindo senso de comunidade em torno dos projetos da ONG.">
+    </div>
+
     <nav aria-label="Navegação Projetos">
       <ul>
- 
         <li><a href="#voluntariado">Voluntariado</a></li>
         <li><a href="#campanhas-de-doacao">Campanhas de doação</a></li>
- 
       </ul>
     </nav>
   </section>
- 
+
     <section id="voluntariado">
-      <h3>Seja um Voluntario</h3>
- 
-      <article>
-        <h4>Voluntariado Presencial</h4>
-        <p>Ajude diretamente no treinamento dos cães-guia em nosso centro de adestramento, participando de socialização, exercícios básicos e acompanhamento veterinário. Ideal para quem tem disponibilidade de alguns dias por semana e mora próximo à unidade.</p>
-      </article>
- 
-      <article>
-        <h4>Voluntariado á distância</h4>
-        <p>Contribua com sua expertise em áreas como comunicação, design, finanças ou tecnologia, apoiando a ONG remotamente na divulgação de campanhas e na organização de processos internos, de qualquer lugar do Brasil.</p>
-      </article>
- 
-      <article>
-        <h4>Apadrinhamento</h4>
-        <p>Torne-se padrinho ou madrinha de um cão em treinamento, contribuindo mensalmente com os custos de alimentação, saúde e formação até que ele esteja pronto para transformar a vida de outras pessoas, que ganham mais autonomia e segurança no dia a dia com a ajuda do seu novo companheiro.</p>
-      </article>
- 
+      <div>
+        <h3>Seja um Voluntario</h3>
+        <p>Cada cão-guia leva em média dois anos entre o nascimento e o momento de estar pronto para transformar a vida de um novo companheiro. Nesse caminho todo, existe espaço para diferentes tipos de ajuda, seja com tempo dedicado dentro do centro de treinamento, seja com habilidades específicas oferecidas à distância, seja com um apoio mensal que sustenta esse processo do início ao fim. Escolha a forma que combina com a sua rotina</p>
+      </div>
+
+      <div>
+        <img src="../imagens/img-voluntariado.jpg" width="600" alt="Voluntário ajoelhado ao lado de um filhote de labrador dourado em treinamento, dentro de um centro de adestramento com obstáculos ao fundo, sorrindo enquanto acaricia o cão.">
+      </div>
+
+      <div class="cartoes-voluntariado">
+        <article>
+          <h4>Voluntariado Presencial</h4>
+          <span class="badge">Vagas abertas</span>
+          <p>Ajude diretamente no treinamento dos cães-guia em nosso centro de adestramento, participando de socialização, exercícios básicos e acompanhamento veterinário. Ideal para quem tem disponibilidade de alguns dias por semana e mora próximo à unidade.</p>
+        </article>
+
+        <article>
+          <h4>Voluntariado á distância</h4>
+          <p>Contribua com sua expertise em áreas como comunicação, design, finanças ou tecnologia, apoiando a ONG remotamente na divulgação de campanhas e na organização de processos internos, de qualquer lugar do Brasil.</p>
+        </article>
+
+        <article>
+          <h4>Apadrinhamento</h4>
+          <p>Torne-se padrinho ou madrinha de um cão em treinamento, contribuindo mensalmente com os custos de alimentação, saúde e formação até que ele esteja pronto para transformar a vida de outras pessoas, que ganham mais autonomia e segurança no dia a dia com a ajuda do seu novo companheiro.</p>
+        </article>
+      </div>
     </section>
 
     <section id="campanhas-de-doacao">
-      <h3>Campanhas de Doação</h3>
- 
-      <article>
-        <h4>Campanha de ração</h4>
-        <p>Nossos cães em treinamento consomem ração de alta qualidade, essencial para o desenvolvimento físico exigido pelo trabalho de guia. Cada doação ajuda a garantir a alimentação adequada durante todo o período de treinamento.<a href="index.html#contato">entre em contato conosco</a></p>
-      </article>
- 
-      <article>
-        <h4>Campanha de vacinação</h4>
-        <p>Manter a carteira de vacinação em dia é fundamental para a saúde dos cães-guia e das pessoas que eles acompanham diariamente. Sua doação financia consultas veterinárias e imunizantes ao longo de todo o treinamento.<a href="index.html#contato">entre em contato conosco</a></p>
-      </article>
- 
- 
+      <div>
+        <h3>Campanhas de Doação</h3>
+        <p>Manter um cão-guia em treinamento envolve custos constantes, que vão da alimentação de qualidade ao acompanhamento veterinário regular. Diferente do apadrinhamento, que é um compromisso contínuo com um animal específico, as campanhas abaixo têm um objetivo pontual: reforçar a ração ou garantir que a carteira de vacinação esteja sempre em dia. Cada doação, de qualquer valor, ajuda a manter esse cuidado em dia</p>
+      </div>
+
+      <div>
+        <img src="../imagens/img-campanha-doacao.jpg" width="600" alt="Veterinário de jaleco branco examinando um labrador dourado adulto sobre uma mesa de exame, com uma tigela de ração ao lado, representando os cuidados de saúde e alimentação custeados pelas doações">
+      </div>
+
+      <div class="cartoes-doacao">
+        <article>
+          <h4>Campanha de ração</h4>
+          <p>Nossos cães em treinamento consomem ração de alta qualidade, essencial para o desenvolvimento físico exigido pelo trabalho de guia. Cada doação ajuda a garantir a alimentação adequada durante todo o período de treinamento.<a href="index.html#contato">entre em contato conosco</a></p>
+        </article>
+
+        <article>
+          <h4>Campanha de vacinação</h4>
+          <p>Manter a carteira de vacinação em dia é fundamental para a saúde dos cães-guia e das pessoas que eles acompanham diariamente. Sua doação financia consultas veterinárias e imunizantes ao longo de todo o treinamento.<a href="index.html#contato">entre em contato conosco</a></p>
+        </article>
+      </div>
     </section>`;
 
 // Lista de dados: cada estado brasileiro é um objeto com sigla e nome,
