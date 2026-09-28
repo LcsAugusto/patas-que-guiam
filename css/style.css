@@ -273,3 +273,432 @@ input:not(:placeholder-shown):invalid{
 .skip-link:focus {
     top: 0;
 }
+
+/* =========================================================
+   REPAGINADA VISUAL INSTITUCIONAL
+   Este bloco fica no final do arquivo de propósito: pela cascata
+   do CSS, quando duas regras têm a mesma especificidade, vence a
+   que vem depois. Assim o visual novo é aplicado sem apagar
+   nenhuma regra antiga (grid, menu hambúrguer, acessibilidade)
+   ========================================================= */
+
+/* Novas variáveis do visual: superfícies, bordas, sombra e fonte.
+   Os rácios de contraste foram calculados com a fórmula da WCAG */
+:root {
+    --cor-superficie: #ffffff;
+    --cor-borda: #e4e2da;
+    --cor-borda-campo: #767676;   /* 4.54:1 sobre branco, acima do mínimo de 3:1 para bordas de campo */
+    --cor-texto-suave: #4a4a4a;   /* 8.86:1 sobre branco */
+    --cor-rodape: #111111;
+    --cor-texto-rodape: #e8e8e8;  /* 15.41:1 sobre o rodapé */
+    --raio: 10px;
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.06), 0 6px 20px rgba(0, 0, 0, 0.06);
+    --fonte: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --largura-max: 1120px;
+}
+
+/* No modo escuro, só as variáveis mudam: as regras abaixo continuam as mesmas */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cor-superficie: #1c1c1c;
+        --cor-borda: #333333;
+        --cor-borda-campo: #8a8a8a;   /* 4.94:1 sobre a superfície escura */
+        --cor-texto-suave: #c8c8c8;   /* 10.19:1 sobre a superfície escura */
+    }
+}
+
+/* Faz padding e borda entrarem no cálculo da largura, evitando elementos estourando */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Tipografia base: fonte do sistema, sem serifa, com entrelinha confortável para leitura */
+body {
+    margin: 0;
+    font-family: var(--fonte);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    line-height: 1.2;
+    margin: 0 0 var(--espaco-2);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+/* clamp(mínimo, ideal, máximo): o título cresce com a tela, mas dentro de limites */
+h2 {
+    font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+}
+
+h3 {
+    font-size: var(--texto-md);
+}
+
+h4 {
+    font-size: 1.125rem;
+}
+
+/* 68ch limita a linha a cerca de 68 caracteres, largura ideal de leitura */
+p {
+    margin: 0 0 var(--espaco-2);
+    color: var(--cor-texto-suave);
+    max-width: 68ch;
+}
+
+/* Imagens nunca passam da largura do espaço onde estão, e mantêm a proporção */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--raio);
+}
+
+/* Links: sublinhado amarelo da marca, que escurece ao passar o mouse */
+a {
+    color: inherit;
+    text-decoration-color: var(--cor-primaria);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    text-decoration-color: currentColor;
+}
+
+/* Foco por teclado visível em todos os links, na cor do texto (preto no claro, claro no escuro) */
+a:focus-visible {
+    outline: 3px solid var(--cor-texto);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* O link de pular conteúdo sobe mais, para não aparecer uma pontinha dele no topo */
+.skip-link {
+    top: -100px;
+}
+
+/* Cabeçalho fixo no topo ao rolar a página, com linha fina separando do conteúdo.
+   O max() centraliza o conteúdo do cabeçalho na mesma largura máxima do resto do site */
+#home {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--cor-superficie);
+    border-bottom: 1px solid var(--cor-borda);
+    padding: var(--espaco-2) max(var(--espaco-3), calc((100% - var(--largura-max)) / 2));
+    gap: var(--espaco-3);
+}
+
+#home h1 {
+    font-size: 1.375rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Pequeno quadrado amarelo antes do nome, funcionando como marca visual */
+#home h1::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background-color: var(--cor-primaria);
+    border-radius: 3px;
+}/* Patinha amarela antes do nome, funcionando como marca visual.
+   O desenho é um SVG usado como máscara (mask): a forma vem do SVG,
+   e a cor vem do background-color, por isso continua usando a cor da marca.
+   flex-shrink: 0 impede que o ícone seja espremido quando o espaço fica curto */
+#home h1::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background-color: var(--cor-primaria);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='4.6' cy='10' rx='2.1' ry='2.7' transform='rotate(-25 4.6 10)'/%3E%3Cellipse cx='9' cy='5.2' rx='2.2' ry='2.9' transform='rotate(-8 9 5.2)'/%3E%3Cellipse cx='15' cy='5.2' rx='2.2' ry='2.9' transform='rotate(8 15 5.2)'/%3E%3Cellipse cx='19.4' cy='10' rx='2.1' ry='2.7' transform='rotate(25 19.4 10)'/%3E%3Cpath d='M12 11.2c-3.1 0-6.6 4.3-6.6 7.1 0 2 1.6 3.1 3.4 3.1 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.8 0 3.4-1.1 3.4-3.1 0-2.8-3.5-7.1-6.6-7.1z'/%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='4.6' cy='10' rx='2.1' ry='2.7' transform='rotate(-25 4.6 10)'/%3E%3Cellipse cx='9' cy='5.2' rx='2.2' ry='2.9' transform='rotate(-8 9 5.2)'/%3E%3Cellipse cx='15' cy='5.2' rx='2.2' ry='2.9' transform='rotate(8 15 5.2)'/%3E%3Cellipse cx='19.4' cy='10' rx='2.1' ry='2.7' transform='rotate(25 19.4 10)'/%3E%3Cpath d='M12 11.2c-3.1 0-6.6 4.3-6.6 7.1 0 2 1.6 3.1 3.4 3.1 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.8 0 3.4-1.1 3.4-3.1 0-2.8-3.5-7.1-6.6-7.1z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.navegacao-principal {
+    position: relative;
+}
+
+.navegacao-principal .lista-menu {
+    margin: 0;
+    padding: 0;
+}
+
+.lista-menu a {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--cor-texto-suave);
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+}
+
+.lista-menu a:hover {
+    color: var(--cor-texto);
+    border-bottom-color: var(--cor-primaria);
+}
+
+.botao-cadastro {
+    padding: 10px 20px;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+}
+
+/* Área principal: centralizada, com largura máxima e respiro em volta */
+#app {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: var(--espaco-5) var(--espaco-3);
+}
+
+#app > section {
+    padding: var(--espaco-4) 0;
+}
+
+/* Linha fina entre uma seção e a seguinte */
+#app > section + section {
+    border-top: 1px solid var(--cor-borda);
+}
+
+/* Seção Sobre: espaço entre as colunas do grid e título maior, como abertura do site */
+#sobre {
+    column-gap: var(--espaco-2);
+    row-gap: var(--espaco-3);
+    align-items: center;
+}
+
+.sobre-texto h2 {
+    font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+}
+
+/* Nossos Projetos, Voluntariado e Campanhas: texto e imagem lado a lado */
+#nossos-projetos,
+#voluntariado,
+#campanhas-de-doacao {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--espaco-4);
+    align-items: center;
+}
+
+/* A navegação e os cartões ocupam a linha inteira, abaixo do texto e da imagem */
+#nossos-projetos nav,
+.cartoes-voluntariado,
+.cartoes-doacao {
+    grid-column: 1 / -1;
+}
+
+/* Em Campanhas a imagem vem primeiro, alternando o lado em relação a Voluntariado */
+#campanhas-de-doacao > div:nth-child(2) {
+    order: -1;
+}
+
+#nossos-projetos nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#nossos-projetos nav a {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Cartões: fundo de superfície, borda fina, sombra leve e faixa amarela no topo */
+.cartoes-voluntariado article,
+.cartoes-doacao article {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-top: 3px solid var(--cor-primaria);
+    border-radius: var(--raio);
+    padding: var(--espaco-3);
+    box-shadow: var(--sombra);
+}
+
+.cartoes-voluntariado article p,
+.cartoes-doacao article p {
+    margin-bottom: 0;
+}
+
+/* O badge não estica na largura do cartão, fica do tamanho do texto */
+.badge {
+    align-self: flex-start;
+}
+
+/* Link "entre em contato conosco": um pequeno espaço antes, já que no texto ele vem colado */
+.cartoes-doacao a {
+    margin-left: 0.25em;
+    font-weight: 600;
+}
+
+/* Contato: cada informação vira um bloco, lado a lado quando há espaço */
+#contato ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--espaco-2);
+}
+
+#contato li {
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    padding: var(--espaco-2) var(--espaco-3);
+}
+
+/* Formulário de cadastro: centralizado, cada fieldset vira um bloco organizado */
+#form-cadastro {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--espaco-3);
+}
+
+#form-cadastro fieldset {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: var(--espaco-3);
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+}
+
+#form-cadastro legend {
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 0 8px;
+}
+
+#form-cadastro label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: var(--espaco-1);
+}
+
+/* Seletores simples (input, select) de propósito: assim as regras de validação
+   que já existem (verde, vermelho, .campo-invalido) continuam vencendo pela especificidade */
+input,
+select {
+    font: inherit;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--cor-borda-campo);
+    border-radius: 8px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--cor-texto);
+    outline-offset: 2px;
+}
+
+/* Botão de enviar com o mesmo visual do botão de cadastro do cabeçalho */
+#form-cadastro button[type="submit"] {
+    justify-self: start;
+    font: inherit;
+    font-weight: 700;
+    background-color: var(--cor-primaria);
+    color: var(--cor-neutra-900);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+#form-cadastro button[type="submit"]:hover {
+    background-color: #ffc404;
+}
+
+#form-cadastro button[type="submit"]:focus-visible {
+    outline: 3px solid var(--cor-texto);
+    outline-offset: 2px;
+}
+
+/* No modo escuro, o vermelho da mensagem de erro fica mais claro para manter o contraste:
+   #ff8a80 dá 7.47:1 sobre a superfície escura (o #b30000 do modo claro continua igual) */
+@media (prefers-color-scheme: dark) {
+    .mensagem-erro {
+        color: #ff8a80;
+    }
+}
+
+/* Rodapé escuro, fechando a página */
+.rodape {
+    background-color: var(--cor-rodape);
+    color: var(--cor-texto-rodape);
+    border-top: 1px solid var(--cor-borda);
+    text-align: center;
+    padding: var(--espaco-4) var(--espaco-3);
+}
+
+/* Sem isso, o parágrafo do rodapé herdaria a cor suave dos parágrafos e ficaria escuro sobre escuro */
+.rodape p {
+    color: inherit;
+    margin: 0 auto;
+    max-width: none;
+    font-size: 0.9rem;
+}
+
+/* Telas até 768px: tudo em uma coluna e menu hambúrguer como caixa suspensa */
+@media (max-width: 768px) {
+    #app {
+        padding: var(--espaco-4) var(--espaco-2);
+    }
+
+    #nossos-projetos,
+    #voluntariado,
+    #campanhas-de-doacao {
+        grid-template-columns: 1fr;
+    }
+
+    #campanhas-de-doacao > div:nth-child(2) {
+        order: 0;
+    }
+
+    #home {
+        padding: var(--espaco-2);
+    }
+
+    .botao-menu {
+        cursor: pointer;
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-weight: 600;
+    }
+
+    .checkbox-escondido:checked ~ .lista-menu {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        min-width: 200px;
+        gap: var(--espaco-2);
+        padding: var(--espaco-2);
+        background-color: var(--cor-superficie);
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio);
+        box-shadow: var(--sombra);
+    }
+}
